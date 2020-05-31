@@ -5,14 +5,19 @@
 
 (def app-state (atom {:text "Goodbye world!"}))
 
-(defn hello-world []
-  [:div
+(defn note []
+  [:div.form-group
+   [:label "Sun 31/05/20"]
+   [:textarea.form-control {:value "This is a text area"}]])
+
+(defn container []
+  [:div.container
    [:h1 (:text @app-state)]
    [:h4 "Edit this and see it change!"]
-   ])
+   [note]])
 
 (defn start []
-  (reagent/render-component [hello-world]
+  (reagent/render-component [container]
                             (. js/document (getElementById "app"))))
 
 (defn ^:export init []
