@@ -1,5 +1,6 @@
 (ns bilbo.core
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+             [reagent.dom :as reagent-dom]))
 
 ;; define your app data so that it doesn't get over-written on reload
 
@@ -21,7 +22,7 @@
    ])
 
 (defn start []
-  (reagent/render-component [container]
+  (reagent-dom/render [container]
                             (. js/document (getElementById "app"))))
 
 (defn ^:export init []
