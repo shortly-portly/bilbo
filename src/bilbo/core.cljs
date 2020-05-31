@@ -3,18 +3,22 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(def app-state (atom {:text "Goodbye world!"}))
+(def app-state (atom {:text "Goodbye world!"
+                      :notes [{:id 1 :creation-ts "Sun 31/05/20" :text "This is note 1"}
+                              {:id 2 :creation-ts "Sat 30/05/20" :text "This is note 2"}]}))
 
-(defn note []
+(defn note-component [content]
   [:div.form-group
-   [:label "Sun 31/05/20"]
-   [:textarea.form-control {:value "This is a text area"}]])
+   [:label (content :creation-ts)]
+   [:textarea.form-control {:value (content :text)}]])
 
 (defn container []
   [:div.container
    [:h1 (:text @app-state)]
    [:h4 "Edit this and see it change!"]
-   [note]])
+   (for [note (@app-state :notes)]
+        [note-component note ])
+   ])
 
 (defn start []
   (reagent/render-component [container]
