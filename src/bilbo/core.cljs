@@ -3,12 +3,13 @@
 
 ;; define your app data so that it doesn't get over-written on reload
 
-(defonce app-state (atom {:text "Hello world!"}))
+(def app-state (atom {:text "Goodbye world!"}))
 
 (defn hello-world []
   [:div
    [:h1 (:text @app-state)]
-   [:h3 "Edit this and really it change!"]])
+   [:h4 "Edit this and see it change!"]
+   ])
 
 (defn start []
   (reagent/render-component [hello-world]
