@@ -1,6 +1,7 @@
 (ns bilbo.core
   (:require [reagent.core :as r]
-            [reagent.dom :as reagent-dom]))
+            [reagent.dom :as reagent-dom]
+            [markdown-it :as markdown-it]))
 
 ;; define your app data so that it doesn't get over-written on reload
 
@@ -26,15 +27,24 @@
 ;;                                nil)}])))
 
 (defn note-component [{:keys [text creation-ts]}]
-  (let [val (r/atom text)]
+  (let [val (r/atom text)
+        md  (markdown-it.)
+        ]
     (fn []
+      (let [row-count (count (re-seq #"\n" @val))]
+
       [:div {:class "shadow p-3 mb-5 bg-white rounded"}
        [:div.form-group
         [:label creation-ts]
         [:textarea {:value @val
+                    :rows (if (< row-count 5) 5 row-count )
                     :class "form-control"
                     :on-change #(reset! val (-> % .-target .-value))}]
-        ]])))
+        ]
+
+       [:div {:dangerouslySetInnerHTML {:__html (. md render @val)}}]
+
+       ]))))
 
 (defn container []
   [:div.container

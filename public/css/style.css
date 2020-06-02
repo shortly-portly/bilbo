@@ -1,1 +1,4 @@
 /* some style */
+.foo {
+  white-space: pre-wrap;  /* <-- THIS PRESERVES THE LINE BREAKS */
+}
